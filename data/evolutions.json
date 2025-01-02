@@ -1,0 +1,8 @@
+{
+    "Sleeping": {
+      "1": ["Longueur", "Récupération", "Influence"],
+      "Longueur": "great sleep",
+      "Récupération": "energizing sleep",
+      "Influence": "sleep aura"
+    }
+  }
