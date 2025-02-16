@@ -1,5 +1,5 @@
-'''Définit les classes comme Competence et Jeu.
-Gère la logique métier du jeu, comme les évolutions et la progression.'''
+"""Définit les classes comme Competence et Jeu.
+Gère la logique métier du jeu, comme les évolutions et la progression."""
 
 import json
 
@@ -34,7 +34,8 @@ class Game:
         self.skill_tree = self.load_skill_tree()
 
     def load_skill_tree(self):
-        """Charge l'arbre d'évolution depuis un fichier JSON avec gestion d'erreur."""
+        """Charge l'arbre d'évolution depuis un fichier
+        JSON avec gestion d'erreur."""
         try:
             with open("data/evolutions.json", "r") as fichier:
                 return json.load(fichier)
@@ -43,17 +44,14 @@ class Game:
             return {}
 
     def init_base_skill(self, name, description, stats):
-        self.actual_skill = Skill(
-            name,
-            description,
-            stats
-        )
+        self.actual_skill = Skill(name, description, stats)
 
     def get_evolution_choices(self):
         """Propose les choix d'évolution disponibles."""
         level = str(self.actual_skill.level)
-        
-        # Vérifie si la compétence actuelle est bien dans l'arbre des compétences
+
+        # Vérifie si la compétence actuelle est bien dans l'arbre
+        # des compétences
         if self.actual_skill.name not in self.skill_tree:
             print(f"Aucune évolution trouvée pour {self.actual_skill.name}.")
             return []
