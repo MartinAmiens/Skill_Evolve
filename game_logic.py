@@ -52,6 +52,12 @@ class Game:
     def get_evolution_choices(self):
         """Propose les choix d'évolution disponibles."""
         level = str(self.actual_skill.level)
+        
+        # Vérifie si la compétence actuelle est bien dans l'arbre des compétences
+        if self.actual_skill.name not in self.skill_tree:
+            print(f"Aucune évolution trouvée pour {self.actual_skill.name}.")
+            return []
+
         return self.skill_tree[self.actual_skill.name].get(level, [])
 
     def appliquer_choix(self, choix):

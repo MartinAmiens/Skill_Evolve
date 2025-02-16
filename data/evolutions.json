@@ -1,8 +1,14 @@
 {
-    "Sleeping": {
-      "1": ["Longueur", "Récupération", "Influence"],
-      "Longueur": "great sleep",
-      "Récupération": "energizing sleep",
-      "Influence": "sleep aura"
-    }
+  "Sleeping": {
+      "1": ["Longueur", "Récupération", "Influence"]
+  },
+  "Longueur": {
+      "2": ["Sommeil profond", "Sommeil prolongé"]
+  },
+  "Récupération": {
+      "2": ["Sieste puissante", "Récupération express"]
+  },
+  "Influence": {
+      "2": ["Aura de sommeil", "Endormissement rapide"]
   }
+}

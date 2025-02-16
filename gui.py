@@ -5,8 +5,8 @@ from game_logic import Game
 
 class GameGUI:
     def __init__(self, root):
-        self.jeu = Game()
-        self.jeu.init_base_skill("Sleeping",
+        self.game = Game()
+        self.game.init_base_skill("Sleeping",
                     "Permet de récupérer de l'énergie.",
                     stats={"récupération": 10, "durée": 8}
                     )
@@ -29,7 +29,7 @@ class GameGUI:
 
 
     def get_skill_text(self):
-        return f"Compétence actuelle: {self.jeu.actual_skill.name} (Niveau {self.jeu.actual_skill.level})"
+        return f"Compétence actuelle: {self.game.actual_skill.name} (Niveau {self.game.actual_skill.level})"
 
 
     def show_evolutions(self):
@@ -37,7 +37,7 @@ class GameGUI:
         for widget in self.choices_frame.winfo_children():
             widget.destroy()
         
-        choices = self.jeu.proposer_evolutions()
+        choices = self.game.get_evolution_choices()
         
         if not choices:
             tk.Label(self.choices_frame, text="Aucune évolution disponible.").pack()
@@ -48,9 +48,13 @@ class GameGUI:
             btn.pack(pady=5)
 
     def apply_evolution(self, choix):
-        self.jeu.appliquer_choix(choix)
+        """Applique l'évolution choisie et met à jour l'affichage sans afficher directement les nouvelles évolutions."""
+        self.game.appliquer_choix(choix)
         self.skill_label.config(text=self.get_skill_text())
-        self.show_evolutions()
+
+        # Effacer les boutons des anciens choix d'évolution pour éviter qu'ils restent affichés
+        for widget in self.choices_frame.winfo_children():
+            widget.destroy()
 
 def run_game():
     root = tk.Tk()
