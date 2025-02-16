@@ -4,7 +4,7 @@ Gère la logique métier du jeu, comme les évolutions et la progression.'''
 import json
 
 
-class skill:
+class Skill:
     def __init__(self, name, description, stats):
         self.name = name
         self.level = 1
@@ -27,25 +27,29 @@ class skill:
         self.effects.append(f"Évolution vers {choix}")
 
 
-class jeu:
+class Game:
     def __init__(self):
         self.actual_skill = None
         self.timer = 30
         self.skill_tree = self.load_skill_tree()
 
     def load_skill_tree(self):
-        """Charge l'arbre d'évolution depuis un fichier JSON."""
-        with open("data/evolutions.json", "r") as fichier:
-            return json.load(fichier)
+        """Charge l'arbre d'évolution depuis un fichier JSON avec gestion d'erreur."""
+        try:
+            with open("data/evolutions.json", "r") as fichier:
+                return json.load(fichier)
+        except (FileNotFoundError, json.JSONDecodeError):
+            print("Erreur: Impossible de charger l'arbre des compétences.")
+            return {}
 
     def init_base_skill(self, name, description, stats):
-        self.actual_skill = skill(
+        self.actual_skill = Skill(
             name,
             description,
             stats
         )
 
-    def proposer_evolutions(self):
+    def get_evolution_choices(self):
         """Propose les choix d'évolution disponibles."""
         level = str(self.actual_skill.level)
         return self.skill_tree[self.actual_skill.name].get(level, [])
