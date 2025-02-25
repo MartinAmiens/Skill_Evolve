@@ -32,6 +32,7 @@ class Game:
         self.actual_skill = None
         self.timer = 30
         self.skill_tree = self.load_skill_tree()
+        self.win_level = 100  # Niveau à atteindre pour gagner
 
     def load_skill_tree(self):
         """Charge l'arbre d'évolution depuis un fichier
@@ -59,5 +60,9 @@ class Game:
         return self.skill_tree[self.actual_skill.name].get(level, [])
 
     def appliquer_choix(self, choix):
-        """Applique le choix d'évolution."""
+        """Applique le choix d'évolution et vérifie la victoire."""
         self.actual_skill.evolve(choix)
+        self.actual_skill.level += 1  # Supposons que chaque évolution augmente le niveau
+        if self.actual_skill.level >= self.win_level:
+            return True  # Condition de victoire atteinte
+        return False

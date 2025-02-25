@@ -58,15 +58,23 @@ class GameGUI:
             btn.pack(pady=5)
 
     def apply_evolution(self, choix):
-        """Applique l'évolution choisie et met à jour l'affichage
-        sans afficher directement les nouvelles évolutions."""
-        self.game.appliquer_choix(choix)
-        self.skill_label.config(text=self.get_skill_text())
+        """Applique l'évolution choisie, met à jour l'affichage
+        sans afficher directement les nouvelles évolutions 
+        et vérifie la victoire."""
+        if self.game.appliquer_choix(choix):  # Si niveau >= 100
+            self.show_victory_message()
+        else:
+            self.skill_label.config(text=self.get_skill_text())
 
         # Effacer les boutons des anciens choix d'évolution
         # pour éviter qu'ils restent affichés
         for widget in self.choices_frame.winfo_children():
             widget.destroy()
+
+    def show_victory_message(self):
+        """Affiche un message de victoire et désactive le bouton d'évolution."""
+        self.skill_label.config(text="🎉 You won! Skill reached level 100! 🎉")
+        self.evolution_button.config(state=tk.DISABLED)
 
 
 def run_game():
